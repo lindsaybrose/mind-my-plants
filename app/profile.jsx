@@ -158,13 +158,6 @@ const Profile = () => {
             : "Switch to Owner View"}
         </Text>
       </Pressable>
-      {/* <View>
-        <Image
-          className="ml-3 shadow-md"
-          source={{ uri: loggedInUser.avatar_url }}
-          style={styles.avatar}
-        />
-      </View> */}
       <Text className="text-2xl font-bold text-center">
         {loggedInUser.username}'s Profile Page
       </Text>

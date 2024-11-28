@@ -30,11 +30,9 @@ const CareGuides = () => {
         {careGuideInfo.map((careGuide) => {
           let careGuideImg = careGuide.img_url;
           let guide = careGuide.title;
-          
-
           return (
             <Pressable
-              onPress={() => {delayPush
+              onPress={() => {
                 router.push(`/(tabs)/Careguides/${guide}`);
               }}
             >

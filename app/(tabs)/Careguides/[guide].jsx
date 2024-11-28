@@ -25,12 +25,13 @@ const guide = () => {
           return careGuide.title == guide;
         });
         setCareGuideInfo(currentGuide);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     });
   }, [guide]);
   const finalGuide = careGuideInfo[0];
-  console.log(finalGuide)
+
+  if(isLoading) {return <Text className="font-custom p-5">...Loading</Text>}
 
   if (!isLoading)
     return (

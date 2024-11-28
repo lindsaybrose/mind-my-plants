@@ -24,13 +24,13 @@ const signin = () => {
       const currentUser = users.filter((eachUser) => {
         return eachUser.username === user && eachUser.password === password;
       });
-      const email = currentUser[0].email;
-      console.log(email, "<<<<<<EMAIL", password);
+      
       if (currentUser.length > 0) {
+        const email = currentUser[0].email;
         handleLoginFirebase(email, password);
         setLoggedInUser(currentUser[0]);
         savedUser(currentUser[0].user_id);
-        router.replace("/");
+        router.replace("/")
       } else setErrorMsg("Sorry, your sign-in details are incorrect");
     });
   };

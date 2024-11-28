@@ -67,6 +67,7 @@ const jobs = () => {
           </View>
           <View className="flex items-center">
             {ownerJobs.map((job) => {
+              console.log(job,'job')
               const userId = job.owner_id;
               const jobId = job.job_id;
               return (

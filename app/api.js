@@ -36,7 +36,8 @@ export const getJobsList = () => {
   return apiClient
     .get("/owners/ads")
     .then((response) => {
-      return response.data.items;
+      console.log(response.data.items,'getjobslist');
+      return response.data.items
     })
     .catch((response) => {
       return Promise.reject(response.status);
@@ -47,7 +48,8 @@ export const getOwnersJobs = (owner_id) => {
   return apiClient
     .get(`/owners/${owner_id}/ads`)
     .then((response) => {
-      return response.data.items;
+      console.log(response.data.items,'getownersjobs')
+      return response.data.items
     })
     .catch((response) => {
       return Promise.reject(response.status);

@@ -48,7 +48,10 @@ export default function RootLayout() {
             name="leftcircleo" size={32} color="white" onPress={() => {router.push('/')}} />),
           href: null, headerTitle: '', headerBackground: (props) => <NewHeader {...props}/>}}/>
         <Stack.Screen name="Authentication/signin" options={{ headerTitle: '', headerBackground: (props) => <NewHeader {...props}/>}}/>
-        <Stack.Screen name="Authentication/registration" options={{ headerTitle: '', headerBackground: (props) => <NewHeader {...props}/>}}/>
+        <Stack.Screen name="Authentication/registration" options={{ 
+            headerLeft: () => (
+              <AntDesign className="ml-4 mt-1" 
+              name="leftcircleo" size={32} color="white" onPress={() => {router.push('/Authentication/signin')}} />),headerTitle: '', headerBackground: (props) => <NewHeader {...props}/>}}/>
       </Stack>
       <StatusBar style="auto" />
       </RoleProvider>

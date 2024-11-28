@@ -30,26 +30,26 @@ const myjobs = () => {
   return (
     <SafeAreaView>
       <View className="mb-4 pt-4">
-        <Text className="text-2xl font-bold text-center">My Jobs</Text>
+        <Text className="text-2xl font-custom font-bold text-center">My Jobs</Text>
       </View>
-      <View className="flex flex-row justify-around mb-4">
+      <View className="flex flex-row justify-around mb-4 ">
         <Pressable
           className={buttonStyle(jobFilter === 1)}
           onPress={() => setJobFilter(1)}
         >
-          <Text>Upcoming</Text>
+          <Text className="font-custom text-md px-2">Upcoming</Text>
         </Pressable>
         <Pressable
           className={buttonStyle(jobFilter === 2)}
           onPress={() => setJobFilter(2)}
         >
-          <Text>Current</Text>
+          <Text className="font-custom text-md px-6">Current</Text>
         </Pressable>
         <Pressable
           className={buttonStyle(jobFilter === 3)}
           onPress={() => setJobFilter(3)}
         >
-          <Text>Past</Text>
+          <Text className="font-custom text-md px-7">Past</Text>
         </Pressable>
       </View>
       {jobs.length > 0 ? (

@@ -79,7 +79,9 @@ const jobs = () => {
               const jobId = job.job_id;
               return (
                 <>
-                  <JobCard job={job} key={job.job_id} />
+                  <Link href={`/jobs/sitters/${userId}/${jobId}`}>
+                    <JobCard job={job} key={job.job_id} />
+                  </Link>
                   <Pressable
                     className="mb-12 mt-0 px-6 py-2 border-[#6A994E] rounded-md bg-[#6A994E] items-center shadow-md"
                     onPress={() => deleteJob(userId, jobId)}

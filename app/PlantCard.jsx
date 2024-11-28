@@ -84,7 +84,7 @@ const PlantCard = ({ plant, user_id, setReloadPage, reloadPage }) => {
               className="p-2 mt-2 bg-[#D77F33] border-[#D77F33] rounded-md mb-2"
               onPress={decreaseQuantity}
             >
-              <Text className="font-lg text-white text-center">Remove</Text>
+              <Text className="font-lg text-white font-semibold text-center">Remove</Text>
             </TouchableOpacity>
             <View className="flex-row items-center mt-2">
               <TouchableOpacity

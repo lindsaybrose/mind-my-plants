@@ -35,7 +35,6 @@ const PlantCard = ({ plant, user_id, setReloadPage, reloadPage }) => {
   const removeDecrease = () => {
     let newRemovePlantCount = removePlantCount - 1;
     if (newRemovePlantCount < 0) {
-      console.log("better idea would be good");
     } else {
       setRemovePlantCount(newRemovePlantCount);
     }
@@ -44,8 +43,6 @@ const PlantCard = ({ plant, user_id, setReloadPage, reloadPage }) => {
     if (removePlantCount + 2 <= plant.quantity) {
       let newRemovePlantCount = removePlantCount + 1;
       setRemovePlantCount(newRemovePlantCount);
-    } else {
-      console.log("still need a better idea");
     }
   };
 
@@ -84,7 +81,9 @@ const PlantCard = ({ plant, user_id, setReloadPage, reloadPage }) => {
               className="p-2 mt-2 bg-[#D77F33] border-[#D77F33] rounded-md mb-2"
               onPress={decreaseQuantity}
             >
-              <Text className="font-lg text-white font-semibold text-center">Remove</Text>
+              <Text className="font-lg text-white font-semibold text-center">
+                Remove
+              </Text>
             </TouchableOpacity>
             <View className="flex-row items-center mt-2">
               <TouchableOpacity

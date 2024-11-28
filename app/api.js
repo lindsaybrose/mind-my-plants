@@ -36,8 +36,7 @@ export const getJobsList = () => {
   return apiClient
     .get("/owners/ads")
     .then((response) => {
-      console.log(response.data.items,'getjobslist');
-      return response.data.items
+      return response.data.items;
     })
     .catch((response) => {
       return Promise.reject(response.status);
@@ -48,8 +47,7 @@ export const getOwnersJobs = (owner_id) => {
   return apiClient
     .get(`/owners/${owner_id}/ads`)
     .then((response) => {
-      console.log(response.data.items,'getownersjobs')
-      return response.data.items
+      return response.data.items;
     })
     .catch((response) => {
       return Promise.reject(response.status);
@@ -134,12 +132,9 @@ export const patchPutOwnerPlantsQuantity = (plant, user_id) => {
 };
 
 export const postNewOwnerPlants = (arrOfPlants, owner_id) => {
-  console.log(arrOfPlants);
-
   return apiClient
     .post(`/owners/${owner_id}/plants`, arrOfPlants)
     .then((response) => {
-      console.log(response, "IN API THEN");
       return response;
     })
     .catch((response) => {
@@ -171,7 +166,6 @@ export const getSitterJobs = (sitter_id) => {
       return response.data.items;
     })
     .catch((response) => {
-      console.log(response);
       return Promise.reject(response.status);
     });
 };
@@ -179,11 +173,9 @@ export const getSitterJobs = (sitter_id) => {
 export const updateProfileBio = (newBio, user_id, user) => {
   const updatedUser = { ...user };
   updatedUser.bio = newBio;
-  console.log(updatedUser, "UPDATE BIO");
   return apiClient
     .post(`/users/${user_id}`, updatedUser)
     .then((response) => {
-      console.log(response);
       return response.data.bio;
     })
     .catch((response) => {

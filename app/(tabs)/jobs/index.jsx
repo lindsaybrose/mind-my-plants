@@ -67,7 +67,6 @@ const jobs = () => {
           </View>
           <View className="flex items-center">
             {ownerJobs.map((job) => {
-              console.log(job,'job')
               const userId = job.owner_id;
               const jobId = job.job_id;
               return (
@@ -85,13 +84,19 @@ const jobs = () => {
               {loggedInUser?.username}, please find a list of jobs below
             </Text>
           </View>
-          <TextInput className="font-custom border rounded-md mt-2 p-1"
+          <TextInput
+            className="font-custom border rounded-md mt-2 p-1"
             placeholder="Search city"
             value={searchQuery}
             onChangeText={handleSearch}
           ></TextInput>
-          <Pressable className="p-2 my-4 mx-20 border-[#6A994E] rounded-md bg-[#6A994E] text-gray-50 font-bold font-custom shadow-md" onPress={clearSearch}>
-            <Text className="font-custom text-center text-gray-50 font-semibold">Clear Search</Text>
+          <Pressable
+            className="p-2 my-4 mx-20 border-[#6A994E] rounded-md bg-[#6A994E] text-gray-50 font-bold font-custom shadow-md"
+            onPress={clearSearch}
+          >
+            <Text className="font-custom text-center text-gray-50 font-semibold">
+              Clear Search
+            </Text>
           </Pressable>
 
           <View className="flex items-center">

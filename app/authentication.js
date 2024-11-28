@@ -13,7 +13,6 @@ export async function signUp(email, password) {
       email,
       password
     );
-    console.log("User signed up:", userCredential.user);
   } catch (error) {
     console.error("Error signing up:", error.message);
   }
@@ -27,7 +26,6 @@ export async function login(email, password) {
       email,
       password
     );
-    console.log("User logged in:", userCredential.user);
   } catch (error) {
     console.error("Error logging in:", error.message);
   }

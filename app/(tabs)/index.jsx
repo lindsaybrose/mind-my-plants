@@ -24,15 +24,12 @@ const index = () => {
     handleLogout();
     setLoggedInUser({});
     router.replace("/Authentication/signin");
-    removeUserId().then(() => {
-      console.log("removed ID in index");
-    });
+    removeUserId().then(() => {});
   };
 
   const handleLogout = async () => {
     try {
       await logoutUser();
-      console.log("Logged Out", "You have successfully logged out.");
     } catch (error) {
       console.log("Error", "Logout failed. Please try again.");
     }
@@ -54,7 +51,6 @@ const index = () => {
       setIsLoading(false);
     });
   }, []);
-
 
   if (isLoading) return <Text className="m-5 font-custom">Loading...</Text>;
   let avatarImg;

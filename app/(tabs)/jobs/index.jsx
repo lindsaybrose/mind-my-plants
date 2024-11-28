@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { LoggedInUserContext } from "../../contexts/loggedInUser";
 import JobCard from "./JobCard";
-import { getJobsList, getOwnersJobs } from "../../api";
+import { getJobsList, getOwnersJobs, deleteOwnerJob } from "../../api";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { Link } from "expo-router";
 import { Pressable } from "react-native";
@@ -19,6 +19,7 @@ const jobs = () => {
   const { userType } = useRole();
   const [searchQuery, setSearchQuery] = useState("");
   const [allJobs, setAllJobs] = useState([]);
+  const [reloadJobs, setReloadJobs] = useState(0);
 
   useEffect(() => {
     getJobsList().then((response) => {
@@ -31,7 +32,7 @@ const jobs = () => {
     getOwnersJobs(loggedInUser.user_id).then((response) => {
       setOwnerJobs(response);
     });
-  }, []);
+  }, [reloadJobs]);
 
   const handleSearch = (text) => {
     setSearchQuery(text);
@@ -43,6 +44,14 @@ const jobs = () => {
       });
       setCurrentJobs(jobsByLocation);
     }
+  };
+
+  const deleteJob = (user_id, job_id) => {
+    deleteOwnerJob(user_id, job_id).then(() => {
+      setReloadJobs(reloadJobs + 1);
+    });
+
+    console.log("delete", user_id, job_id);
   };
 
   const clearSearch = () => {
@@ -70,9 +79,17 @@ const jobs = () => {
               const userId = job.owner_id;
               const jobId = job.job_id;
               return (
-                <Link href={`/jobs/sitters/${userId}/${jobId}`}>
+                <>
                   <JobCard job={job} key={job.job_id} />
-                </Link>
+                  <Pressable
+                    className="mb-12 mt-0 px-6 py-2 border-[#6A994E] rounded-md bg-[#6A994E] items-center shadow-md"
+                    onPress={() => deleteJob(userId, jobId)}
+                  >
+                    <Text className="text-gray-50 font-bold font-custom ">
+                      DELETE JOB
+                    </Text>
+                  </Pressable>
+                </>
               );
             })}
           </View>
@@ -84,13 +101,19 @@ const jobs = () => {
               {loggedInUser?.username}, please find a list of jobs below
             </Text>
           </View>
-          <TextInput className="font-custom border rounded-md mt-2 p-1"
+          <TextInput
+            className="font-custom border rounded-md mt-2 p-1"
             placeholder="Search city"
             value={searchQuery}
             onChangeText={handleSearch}
           ></TextInput>
-          <Pressable className="p-2 my-4 mx-20 border-[#6A994E] rounded-md bg-[#6A994E] text-gray-50 font-bold font-custom shadow-md" onPress={clearSearch}>
-            <Text className="font-custom text-center text-gray-50 font-semibold">Clear Search</Text>
+          <Pressable
+            className="p-2 my-4 mx-20 border-[#6A994E] rounded-md bg-[#6A994E] text-gray-50 font-bold font-custom shadow-md"
+            onPress={clearSearch}
+          >
+            <Text className="font-custom text-center text-gray-50 font-semibold">
+              Clear Search
+            </Text>
           </Pressable>
 
           <View className="flex items-center">

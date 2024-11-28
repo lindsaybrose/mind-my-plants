@@ -189,4 +189,16 @@ export const updateProfileBio = (newBio, user_id, user) => {
     });
 };
 
+export const deleteOwnerJob = (owner_id, job_id) => {
+  return apiClient
+    .delete(`owners/${owner_id}/ads/${job_id}`)
+    .then((response) => {
+      console.log("Deleted from api");
+      return response;
+    })
+    .catch((err) => {
+      return Promise.reject(err.status);
+    });
+};
+
 export default apiClient;

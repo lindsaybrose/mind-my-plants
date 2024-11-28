@@ -8,14 +8,21 @@ import {
   Pressable,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native"; //  React Navigation is set up
 import { getJobSitters } from "../../../../api";
 import { useLocalSearchParams } from "expo-router";
+import { Modal } from "react-native";
+import Chat from "@/app/Chat";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView } from "react-native-gesture-handler";
+import { createChatIfNotExists } from "@/app/authentication";
+import { auth } from "@/app/firebase";
 
 const SitterCards = () => {
   const [sitterData, setSitterData] = useState([]);
-  const navigation = useNavigation();
   const { userId, jobId } = useLocalSearchParams();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [activeChatId, setActiveChatId] = useState(null);
+  const [chatId, setChatId] = useState("");
 
   useEffect(() => {
     getJobSitters(userId, jobId).then((response) => {
@@ -32,6 +39,21 @@ const SitterCards = () => {
         //PATCH pending to JOBS table
       )
     );
+  };
+
+  const handleStartChat = async (otherUserEmail) => {
+    try {
+      console.log("HANDLE START CHATTTT");
+      const currentUserId = auth.currentUser.uid;
+      console.log(currentUserId, "USERID in SitterCards");
+      const chatId = await createChatIfNotExists(currentUserId, otherUserEmail);
+      console.log(currentUserId, "currUserID");
+      console.log(chatId, "CHAT ID WOW");
+      setChatId(chatId);
+      setModalVisible(true);
+    } catch (error) {
+      console.error("Error starting chat:", error);
+    }
   };
 
   const renderCard = ({ item }) => {
@@ -61,15 +83,37 @@ const SitterCards = () => {
         {isAccepted ? (
           <>
             <Pressable
-              className="bg-[#6A994E] p-2 border-[#6A994E] rounded-md"
-              onPress={() =>
-                navigation.navigate("Chat", { sitterId: item.sitter_id })
-              }
+               className="bg-[#6A994E] p-2 border-[#6A994E] rounded-md"
+              onPress={() => {
+                handleStartChat(item.email);
+              }}
             >
-              <Text className="text-center p-2 font-semibold text-white">
-                Contact
-              </Text>
+              <Text className="text-center p-2 font-semibold text-white">Contact</Text>
+
             </Pressable>
+            <Modal
+              visible={modalVisible}
+              animationType="slide"
+              onRequestClose={() => setModalVisible(false)} // Android back button support
+            >
+              <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+                {/* Modal Header */}
+                <View style={styles.modalHeader}>
+                  <Text style={styles.modalTitle}>Chat</Text>
+                  <Pressable
+                    style={styles.closeModalButton}
+                    onPress={() => setModalVisible(false)}
+                  >
+                    <Text style={styles.closeModalButtonText}>Close</Text>
+                  </Pressable>
+                </View>
+
+                {/* Chat Component */}
+
+                <Chat chatId={chatId} />
+              </SafeAreaView>
+            </Modal>
+
             {/* && !item.feedback */}
             {isCompleted && (
               <Pressable
@@ -86,10 +130,11 @@ const SitterCards = () => {
           <Pressable
             className="bg-[#D77F33] p-2 border-[#D77F33 rounded-md"
             style={[hasAcceptedSitter ? styles.disabledButton : null]}
+
             disabled={hasAcceptedSitter}
             onPress={() => handleAccept(item.sitter_id)}
           >
-            <Text className="text-center p-2 font-semibold text-white">
+            <Text style={styles.buttonText}>
               {hasAcceptedSitter ? "Disabled" : "Accept"}
             </Text>
           </Pressable>
@@ -196,6 +241,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc",
     borderColor: "#aaa",
     opacity: 0.6,
+  },
+  modalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 15,
+    backgroundColor: "#007bff",
+  },
+  modalTitle: {
+    fontSize: 18,
+    color: "white",
+    fontWeight: "bold",
+  },
+  closeModalButton: {
+    backgroundColor: "#ff5252",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  closeModalButtonText: {
+    color: "white",
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });
 

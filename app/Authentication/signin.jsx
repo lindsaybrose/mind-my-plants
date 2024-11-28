@@ -27,7 +27,7 @@ const signin = () => {
 
       if (currentUser.length > 0) {
         const email = currentUser[0].email;
-        handleLoginFirebase(email, password);
+        handleLoginFirebase(email, password, currentUser);
         setLoggedInUser(currentUser[0]);
         savedUser(currentUser[0].user_id);
         router.replace("/");
@@ -35,9 +35,10 @@ const signin = () => {
     });
   };
 
-  const handleLoginFirebase = async (email, password) => {
+  const handleLoginFirebase = async (email, password, currentUser) => {
     try {
-      await login(email, password);
+      await login(email, password, currentUser);
+      //console.log("Success", "You are now logged in!");
     } catch (error) {
       console.log("Error", "Invalid credentials. Please try again.");
     }
@@ -64,15 +65,15 @@ const signin = () => {
       </View>
       <View className="flex-row justify-center mt-4 ">
         <Pressable
-          className="mx-5 px-6 py-2 border-[#6A994E] rounded-md bg-[#6A994E]  shadow-md"
+          className="mx-5 px-6 py-2 border-[#6A994E] rounded-md bg-[#6A994E] text-gray-50 font-bold font-custom shadow-md"
           disabled={!user || !password}
           onClick={userAuthentication}
         >
-          <Text className="text-gray-50 font-bold font-custom">Sign In</Text>
+          <Text>Sign In</Text>
         </Pressable>
         <Link href="/Authentication/registration" asChild>
-          <Pressable className="mx-5 px-6 py-2 border-[#6A994E] rounded-md bg-[#6A994E] shadow-md">
-            <Text className="text-gray-50 font-bold font-custom">Sign Up</Text>
+          <Pressable className="mx-5 px-6 py-2 border-[#6A994E] rounded-md bg-[#6A994E] text-gray-50 font-bold font-custom shadow-md">
+            <Text>Sign Up</Text>
           </Pressable>
         </Link>
       </View>

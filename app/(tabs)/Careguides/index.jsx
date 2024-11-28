@@ -19,7 +19,6 @@ const CareGuides = () => {
     });
   }, [careGuideInfo]);
 
-  
   return (
     <SafeAreaView>
       <Text className="text-lg font-custom mt-5 mb-7">
@@ -30,18 +29,22 @@ const CareGuides = () => {
         {careGuideInfo.map((careGuide) => {
           let careGuideImg = careGuide.img_url;
           let guide = careGuide.title;
+
           return (
             <Pressable
               onPress={() => {
                 router.push(`/(tabs)/Careguides/${guide}`);
               }}
             >
-              
               <View className="items-center col-span-3">
                 <Text className="text-center text-lg font-custom mb-2 ">
                   {careGuide.title}
                 </Text>
-                <Image className='shadow-md' source={{ uri: careGuideImg }} style={styles.image} />
+                <Image
+                  className="shadow-md"
+                  source={{ uri: careGuideImg }}
+                  style={styles.image}
+                />
               </View>
             </Pressable>
           );
@@ -58,6 +61,5 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 50,
-    
   },
 });

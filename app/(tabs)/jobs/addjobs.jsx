@@ -25,7 +25,6 @@ const addjobs = () => {
 
   useEffect(() => {
     getUserId("user_id").then((id) => {
-      console.log(id, "in use effect");
       savedUserId = id;
     });
   }, []);
@@ -69,11 +68,26 @@ const addjobs = () => {
           </Text>
           <Text className="font-custom mb-1 text-base">Start Date</Text>
 
-          <DatePicker className='rounded-md pl-1' isClearable='true'  selected={startDate} minDate={Date()} locale='en-GB' dateFormat='dd/MM/yyyy' onChange={(date) => {
-            setStartDate(date)}
-            } />
+          <DatePicker
+            className="rounded-md pl-1"
+            isClearable="true"
+            selected={startDate}
+            minDate={Date()}
+            locale="en-GB"
+            dateFormat="dd/MM/yyyy"
+            onChange={(date) => {
+              setStartDate(date);
+            }}
+          />
           <Text className="font-custom mb-1 text-base">End Date</Text>
-          <DatePicker className='rounded-md pl-1' selected={endDate} locale='en-GB' minDate={Date()} dateFormat='dd/MM/yyyy' onChange={(date) => setEndDate(date)} />
+          <DatePicker
+            className="rounded-md pl-1"
+            selected={endDate}
+            locale="en-GB"
+            minDate={Date()}
+            dateFormat="dd/MM/yyyy"
+            onChange={(date) => setEndDate(date)}
+          />
           <Text className="font-custom mb-1 text-base">Daily Rate (£)</Text>
           <TextInput
             onChange={(e) => setDailyRate(e.target.value)}
@@ -95,9 +109,13 @@ const addjobs = () => {
             aria-required="true"
           />
 
-          <Pressable className="mx-5 px-6 py-2 border-[#6A994E] rounded-md bg-[#6A994E] items-center shadow-md" onPress={handleJobSubmit}>
-            <Text className=" text-gray-50 font-bold font-custom ">Add Job</Text>
-
+          <Pressable
+            className="mx-5 px-6 py-2 border-[#6A994E] rounded-md bg-[#6A994E] items-center shadow-md"
+            onPress={handleJobSubmit}
+          >
+            <Text className=" text-gray-50 font-bold font-custom ">
+              Add Job
+            </Text>
           </Pressable>
           <Text>{message}</Text>
         </View>

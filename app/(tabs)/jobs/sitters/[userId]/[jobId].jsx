@@ -39,7 +39,6 @@ const SitterCards = () => {
         //PATCH pending to JOBS table
       )
     );
-    console.log("Accepted", "You have accepted this sitter.");
   };
 
   const handleStartChat = async (otherUserEmail) => {
@@ -84,12 +83,13 @@ const SitterCards = () => {
         {isAccepted ? (
           <>
             <Pressable
-              style={styles.contactButton}
+               className="bg-[#6A994E] p-2 border-[#6A994E] rounded-md"
               onPress={() => {
                 handleStartChat(item.email);
               }}
             >
-              <Text style={styles.buttonText}>Contact</Text>
+              <Text className="text-center p-2 font-semibold text-white">Contact</Text>
+
             </Pressable>
             <Modal
               visible={modalVisible}
@@ -128,10 +128,9 @@ const SitterCards = () => {
           </>
         ) : (
           <Pressable
-            style={[
-              styles.acceptButton,
-              hasAcceptedSitter ? styles.disabledButton : null,
-            ]}
+            className="bg-[#D77F33] p-2 border-[#D77F33 rounded-md"
+            style={[hasAcceptedSitter ? styles.disabledButton : null]}
+
             disabled={hasAcceptedSitter}
             onPress={() => handleAccept(item.sitter_id)}
           >

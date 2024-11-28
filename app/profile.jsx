@@ -140,35 +140,28 @@ const Profile = () => {
   };
 
   const inputClassName =
-    "border rounded-md p-2 text-base font-custom bg-white shadow-sm";
+    "border rounded-md p-2 text-base font-custom bg-white shadow-md";
 
   return (
-    <ScrollView className="flex-1 bg-white">
+    <ScrollView className="flex-1 font-custom bg-white">
       <Pressable
-        className={`mt-5 mb-5 p-2 rounded-md self-center ${
+        className={`my-5 px-3 p-2 font-custom rounded-md self-center ${
           userType === "owner" ? "bg-[#6A994E]" : "bg-[#D77F33]"
         }`}
         onPress={() =>
           userType === "owner" ? setUserType("sitter") : setUserType("owner")
         }
       >
-        <Text className="text-lg font-bold text-white">
+        <Text className="text-lg font-custom font-bold text-white">
           {userType === "owner"
             ? "Switch to Sitter View"
             : "Switch to Owner View"}
         </Text>
       </Pressable>
-      {/* <View>
-        <Image
-          className="ml-3 shadow-md"
-          source={{ uri: loggedInUser.avatar_url }}
-          style={styles.avatar}
-        />
-      </View> */}
-      <Text className="text-2xl font-bold text-center">
+      <Text className="text-2xl font-custom font-bold text-center">
         {loggedInUser.username}'s Profile Page
       </Text>
-      <Text className="text-1xl font-bold text-center">
+      <Text className="text-lg font-custom font-bold text-center">
         Update Profile Information
       </Text>
       <View className="font-custom mx-5">
@@ -228,8 +221,8 @@ const Profile = () => {
           value={profileDetails.password}
           secureTextEntry={passwordIsVis}
         />
-        <Pressable onPress={handlePasswordVis}>
-          <Text>{passwordButton}</Text>
+        <Pressable className='bg-[#6A994E] rounded p-1 mx-32 items-center mt-1' onPress={handlePasswordVis}>
+          <Text className="text-center text-sm">{passwordButton}</Text>
         </Pressable>
       </View>
 

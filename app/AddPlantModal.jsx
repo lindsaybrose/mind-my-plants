@@ -88,14 +88,14 @@ const AddPlantModal = ({ visible, onClose, plants, onAddPlants }) => {
           )}
         />
         <TouchableOpacity
-          styles={styles.button}
+          className="p-2 my-2 mx-20 border-[#6A994E] rounded-md bg-[#6A994E] text-gray-50 font-bold font-custom shadow-md text-center"
           title="Add Plants"
           onPress={handleAddPlants}
         >
           Add Plants
         </TouchableOpacity>
         <TouchableOpacity
-          styles={styles.button}
+          className="p-2 mx-20 border-[#6A994E] rounded-md bg-[#6A994E] text-gray-50 font-bold font-custom shadow-md text-center"
           title="Close"
           onPress={handleCloseAddPlants}
         >

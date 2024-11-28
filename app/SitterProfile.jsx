@@ -49,7 +49,7 @@ const SitterProfile = ({ profileDetails }) => {
   };
 
   return (
-    <ScrollView className="flex-1 bg-white p-5">
+    <ScrollView className="flex-1 bg-white p-5 font-custom">
       <Text className=" pb-3 text-2xl font-bold text-center">
         Sitter Profile <br /> Average Rating:{" "}
         {averageRating || "No ratings given"}
@@ -57,7 +57,7 @@ const SitterProfile = ({ profileDetails }) => {
       <View className="mb-4">
         <Text className="text-lg pb-2">Your Description:</Text>
         <TextInput
-          className="bg-gray-100 border border-gray-300 rounded-lg p-3 text-lg text-left h-24"
+          className="border rounded-lg p-3 text-lg text-left h-24"
           multiline={true}
           placeholder="Tell others about yourself..."
           value={description}

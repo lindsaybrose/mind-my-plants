@@ -24,6 +24,7 @@ const signin = () => {
       const currentUser = users.filter((eachUser) => {
         return eachUser.username === user && eachUser.password === password;
       });
+
       if (currentUser.length > 0) {
         const email = currentUser[0].email;
         handleLoginFirebase(email, password, currentUser);
@@ -42,8 +43,6 @@ const signin = () => {
       console.log("Error", "Invalid credentials. Please try again.");
     }
   };
-
-  // if (!loggedInUser == {}) return <Redirect href="/" />;
 
   return (
     <SafeAreaView className="items-center">

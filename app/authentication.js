@@ -24,7 +24,6 @@ export async function signUp(email, password) {
       email,
       password
     );
-    console.log("User signed up:", userCredential.user);
   } catch (error) {
     console.error("Error signing up:", error.message);
   }
@@ -39,8 +38,6 @@ export async function login(email, password, currentUser) {
       password
     );
     currentUser[0].uid = userCredential.user.uid;
-    console.log("User logged in:", userCredential.user);
-    console.log(currentUser);
   } catch (error) {
     console.error("Error logging in:", error.message);
   }

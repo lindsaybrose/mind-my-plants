@@ -10,9 +10,10 @@ import {
   Platform,
   SafeAreaView,
 } from "react-native";
-import { auth } from "./firebase"; // Assume user authentication is handled.
+import { auth } from "./firebase"; // Assume user authentication is handled
 import { useChatMessages, sendMessage } from "./chatFunctions";
 import { logoutUser } from "./authentication";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Chat({ chatId }) {
   const messages = useChatMessages(chatId);
@@ -39,25 +40,28 @@ export default function Chat({ chatId }) {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={styles.keyboardAvoidingView}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        {/* Messages */}
-        <FlatList
-          data={messages}
-          renderItem={renderMessage}
-          keyExtractor={(msg) => msg.id}
-          style={styles.messagesContainer} // Ensure it takes space
-          showsVerticalScrollIndicator={false} // Optional: Hide scroll bar
-        />
+        {/* Scrollable Messages */}
+        <ScrollView>
+          <FlatList
+            data={messages}
+            renderItem={renderMessage}
+            keyExtractor={(msg) => msg.id}
+            style={styles.messagesContainer} // Ensure it takes space
+            showsVerticalScrollIndicator={false} // Optional: Hide scroll bar
+            contentContainerStyle={{ paddingBottom: 70 }} // Prevent messages from being hidden under input
+          />
+        </ScrollView>
 
-        {/* Input */}
+        {/* Input Section */}
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
             placeholder="Type a message"
             value={text}
-            onChangeText={(text) => setText(text)}
+            onChangeText={setText}
           />
           <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
             <Text style={styles.sendButtonText}>Send</Text>
@@ -71,12 +75,15 @@ export default function Chat({ chatId }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    height: "100vh", // Full viewport height
-    width: "100vw", // Full viewport width
-    fontFamily: "Arial, sans-serif",
+    // flexDirection: "column",
+    // height: "100vh", // Full viewport height
+    // width: "100vw", // Full viewport width
+    // fontFamily: "Arial, sans-serif",
     backgroundColor: "#f8f9fa", // Light modern background
-    position: "relative",
+    //position: "relative",
+  },
+  keyboardAvoidingView: {
+    flex: 1,
   },
   header: {
     flexDirection: "row",
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
   },
   messagesContainer: {
     flex: 1, // Ensure it takes up the remaining space
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingVertical: 10,
     // position: "relative",
   },
@@ -128,7 +135,10 @@ const styles = StyleSheet.create({
   //   fontSize: 14,
   // },
   inputContainer: {
-    height: 60,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
     flexDirection: "row",
     alignItems: "center",
     padding: 10,

@@ -11,6 +11,7 @@ import { useRole } from "../../contexts/role";
 import { router } from "expo-router";
 import { SearchBar } from "react-native-elements";
 import { all } from "axios";
+import { deleteOwnerJob } from "../../api";
 
 const jobs = () => {
   const { loggedInUser } = useContext(LoggedInUserContext);
@@ -19,6 +20,7 @@ const jobs = () => {
   const { userType } = useRole();
   const [searchQuery, setSearchQuery] = useState("");
   const [allJobs, setAllJobs] = useState([]);
+  const [reloadJobs, setReloadJobs] = useState(0);
 
   useEffect(() => {
     getJobsList().then((response) => {
@@ -31,7 +33,7 @@ const jobs = () => {
     getOwnersJobs(loggedInUser.user_id).then((response) => {
       setOwnerJobs(response);
     });
-  }, []);
+  }, [reloadJobs]);
 
   const handleSearch = (text) => {
     setSearchQuery(text);
@@ -43,6 +45,12 @@ const jobs = () => {
       });
       setCurrentJobs(jobsByLocation);
     }
+  };
+
+  const deleteJob = (user_id, job_id) => {
+    deleteOwnerJob(user_id, job_id).then(() => {
+      setReloadJobs(reloadJobs + 1);
+    });
   };
 
   const clearSearch = () => {
@@ -70,9 +78,17 @@ const jobs = () => {
               const userId = job.owner_id;
               const jobId = job.job_id;
               return (
-                <Link href={`/jobs/sitters/${userId}/${jobId}`}>
+                <>
                   <JobCard job={job} key={job.job_id} />
-                </Link>
+                  <Pressable
+                    className="mb-12 mt-0 px-6 py-2 border-[#6A994E] rounded-md bg-[#6A994E] items-center shadow-md"
+                    onPress={() => deleteJob(userId, jobId)}
+                  >
+                    <Text className="text-gray-50 font-bold font-custom ">
+                      DELETE JOB
+                    </Text>
+                  </Pressable>
+                </>
               );
             })}
           </View>

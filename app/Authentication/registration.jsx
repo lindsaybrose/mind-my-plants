@@ -8,6 +8,7 @@ import { registerUser } from "../api";
 import { LoggedInUserContext } from "../contexts/loggedInUser";
 import { Link } from "expo-router";
 import { savedUser } from "../async-storage";
+import { router } from "expo-router";
 
 const registration = () => {
   const [registrationDetails, setRegistrationDetails] = useState({
@@ -58,7 +59,7 @@ const registration = () => {
           setIsPosting("");
           setIsValidMsg("");
           return newUser;
-        })
+        }).then(() => {router.push('/Authentication/signin')})
         .catch((statusCode) => {
           if (statusCode === 409) {
             setIsErrorMsg("Username or Email already exists");
@@ -137,22 +138,6 @@ const registration = () => {
       {!isValid && <Text className="text-xl p-7 text-center">{isValidMsg}</Text>}
       <Text className="text-xl p-7 text-center">{isPosting}</Text>
       <Text className="text-xl p-7 text-center">{isErrorMsg}</Text>
-
-      {loggedInUser && (
-        <View>
-          <Text>Welcome to Mind My Plants, {loggedInUser?.first_name}</Text>
-          <Link href="./" asChild>
-            <Pressable>
-              <Text>Go to Homepage</Text>
-            </Pressable>
-          </Link>
-          <Link href="../profile" asChild>
-            <Pressable>
-              <Text>Complete My Profile</Text>
-            </Pressable>
-          </Link>
-        </View>
-      )}
     </SafeAreaView>
   );
 };
